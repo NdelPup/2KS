@@ -30,7 +30,7 @@ class MyListener(stomp.ConnectionListener):
             #conn.send(body="SYNC", headers={"gate" : gate, "event" : event, "arena" : arena}, \
             #destination='/queue/lettore' + headers.get("sender"))
         if message == "EXIT":
-            t = Thread(target=register exit, args=(headers))
+            t = Thread(target=registerExit, args=(headers))
             t.start()
         else:
             t = Thread(target=checkTicket, args=(headers, message))
