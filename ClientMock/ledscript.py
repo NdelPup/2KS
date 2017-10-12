@@ -1,5 +1,7 @@
 
 class led():
+    
+    #mock della classe che realmente controlla i led nello script caricato sul device
 
     def led_giallo_on(self):
         print ("led giallo on")

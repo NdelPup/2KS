@@ -29,6 +29,9 @@ class MyListener(stomp.ConnectionListener):
             #gate = syncDev(headers.get("sender"))
             #conn.send(body="SYNC", headers={"gate" : gate, "event" : event, "arena" : arena}, \
             #destination='/queue/lettore' + headers.get("sender"))
+        if message == "EXIT":
+            t = Thread(target=register exit, args=(headers))
+            t.start()
         else:
             t = Thread(target=checkTicket, args=(headers, message))
             t.start()
@@ -51,6 +54,9 @@ def checkTicket(headers, message):
         conn.send(body="false", headers={"error" : "2"}, destination='/queue/lettore' + sender)
     else:
         conn.send(body="false", headers={"error" : "1"}, destination='/queue/lettore' + sender)
+
+def registerExit(headers):
+    print "exit registered in DB uscita: " +headers.get("gate")+", tornello: "+headers.get("tornello")
 
 def syncServer():
     #funzione che sincronizza il server
